@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>MQTT WEB</title>
+</head>
+
+<body>
+    <h1 class="text-center text-light p-3 bg-dark">MQTT/Web Socket </h1>
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Broker -->
+                <div class="col-sm-4">
+                    <div id="brokerbox" class="form_background border border-primary rounded-3">
+                        <div class="panel panel-info">
+                            <div class="panel-heading bg-dark">
+                                <div class="panel-title">
+                                    <h5 class="text-center text-light p-4">Broker</h5>
+                                </div>
+                            </div>
+                            <div style="padding:25px" class="panel-body ">
+                                <form id="brokerform" class="form-horizontal" role="form">
+                                    <label class="form-label">
+                                        <h6>Address:</h6>
+                                    </label>
+                                    <div style="margin-bottom: 25px" class="input-group">
+                                        <input id="broker" type="text" class="form-control" name="address"
+                                            value="wss://test.mosquitto.org:8081/mqtt">
+                                    </div>
+
+                                    <label class="form-label">
+                                        <h6>Status:</h6>
+                                    </label>
+                                    <div style="margin-bottom: 25px" class="input-group">
+                                        <input id="broker-status" type="text" class="form-control" name="status"
+                                            placeholder="Click Connect Button" disabled="">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <!-- Button -->
+                                <div class="col-sm-12 controls d-flex justify-content-end">
+                                    <button type="button" id="connectToBroker"
+                                        class="btn btn-success text-dark">Connect</button>
+                                    <button type="submit" id="broker-btn-dis"
+                                        class="ml-2 btn btn-danger text-dark">Disconnect!</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Publish -->
+                <div class="col-sm-4">
+                    <div id="pubbox" class="form_background border border-primary rounded">
+                        <div class="panel panel-info">
+                            <div class="panel-heading bg-dark">
+                                <div class="panel-title">
+                                    <h5 class="text-center text-light p-4">Publish</h5>
+                                </div>
+                            </div>
+                            <div style="padding:25px" class="panel-body ">
+                                <form id="pubform" class="form-horizontal" role="form">
+                                    <label class="form-label">
+                                        <h6>Topic:</h6>
+                                    </label>
+                                    <div style="margin-bottom: 25px" class="input-group">
+                                        <input id="publishTopic" type="text" class="form-control"
+                                            placeholder="Topic to be Published">
+                                    </div>
+
+                                    <label class="form-label">
+                                        <h6>Payload:</h6>
+                                    </label>
+                                    <div style="margin-bottom: 25px" class="input-group">
+                                        <input id="publishPayload" type="text" class="form-control" name="payload"
+                                            placeholder="Payload to be Published">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <div class="col-sm-12 controls d-flex justify-content-end">
+                                    <button type="button" id="publishButton"
+                                        class=" btn text-dark btn-primary">Publish</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Subscribe -->
+                <div class="col-sm-4">
+                    <div id="subbox" class="form_background border border-primary rounded" style="height: 395px;">
+                        <div class="panel panel-info">
+                            <div class="panel-heading bg-dark">
+                                <div class="panel-title">
+                                    <h5 class="text-center text-light p-4">Subscribe</h5>
+                                </div>
+                            </div>
+
+                            <div style="padding:25px" class="panel-body pb-5">
+                                <form id="subform" class="form-horizontal pb-5" role="form">
+                                    <label class="form-label">
+                                        <h6>Topic:</h6>
+                                    </label>
+                                    <div style="margin-bottom: 50px" class="input-group">
+                                        <input id="subscribedTopic" type="text" class="form-control" name="username"
+                                            placeholder="Topic to be Subscribed">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <!-- Button -->
+                                <div class="col-sm-12 controls d-flex justify-content-end"><button type="button"
+                                        id="subscribedButton" class="btn btn-primary text-dark">Subscribe</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Messages -->
+        <div class="row mt-5">
+            <!-- Broker Message -->
+            <div class="col-sm-4">
+                <div id="brokerbox" class="form_background border border-success rounded">
+                    <div class="panel panel-info">
+                        <div class="panel-heading bg-secondary">
+                            <div class="panel-title">
+                                <h5 class="text-center text-light p-4">Incoming Messages</h5>
+                            </div>
+                        </div>
+                        <div style="padding:20px;padding-top:0%;overflow: auto;height: 280px;" class="panel-body ">
+                            <table class="table ">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th scope="col">Topic</th>
+                                        <th scope="col">Payload</th>
+                                        <th scope="col">Time Stamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-broker">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Publish Message-->
+            <div class="col-sm-4">
+                <div id="pubbox" class="form_background border border-success rounded">
+                    <div class="panel panel-info">
+                        <div class="panel-heading bg-secondary">
+                            <div class="panel-title">
+                                <h5 class="text-center text-light p-4">Publish Messages</h5>
+                            </div>
+                        </div>
+
+                        <div style="padding:20px;padding-top:0%;overflow: auto;height: 280px;" class="panel-body ">
+                            <table class="table">
+                                <thead class="text-center ">
+                                    <tr>
+
+                                        <th scope="col">Topic</th>
+                                        <th scope="col">Payload</th>
+                                        <th scope="col">Time Stamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-pub">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Subscribe Message-->
+            <div class="col-sm-4">
+                <div id="subbox" class="form_background border border-success rounded">
+                    <div class="panel panel-info">
+                        <div class="panel-heading bg-secondary">
+                            <div class="panel-title">
+                                <h5 class="text-center text-light p-4">Subscribe Messages</h5>
+                            </div>
+                        </div>
+                        <div style="padding:20px; padding-top:0%; overflow:auto; height: 280px;" class="panel-body ">
+                            <table class="table ">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th scope="col">Topic</th>
+                                        <th scope="col">Time Stamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-sub">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./browserMqtt.js"></script>
+    <script src="./wala.js"></script>
+</body>
+
+</html>
